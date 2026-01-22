@@ -127,7 +127,7 @@ export default function Footer() {
             © {currentYear} <span className="gradient-text">X-Tech</span>. جميع الحقوق محفوظة.
           </p>
           <p className="credits">
-            صُمم بـ <span className="heart">❤</span> في المملكة العربية السعودية
+           <span className="heart">Powered by IDRISIUM</span>
           </p>
           <button className="scroll-top" onClick={scrollToTop} aria-label="Scroll to top">
             <ArrowUp size={20} />
