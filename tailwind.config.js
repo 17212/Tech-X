@@ -7,26 +7,32 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "#050505", // Almost black
-        surface: "#121212", // Dark gray for cards
-        primary: "#3B82F6", // Tech Blue
-        secondary: "#8B5CF6", // Purple accent
-        accent: "#10B981", // Emerald green for success/active
-        "text-primary": "#F3F4F6", // Gray 100
-        "text-secondary": "#9CA3AF", // Gray 400
+        background: "#030305", // Deepest black/blue
+        surface: "#0F0F12", // High-end dark gray
+        primary: "#2563EB", // Royal Blue
+        secondary: "#7C3AED", // Deep Purple
+        accent: "#06B6D4", // Cyan
+        "text-primary": "#FFFFFF",
+        "text-secondary": "#94A3B8",
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        heading: ['Outfit', 'sans-serif'],
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 360deg)',
+        display: ['Outfit', 'sans-serif'],
       },
       animation: {
-        'spin-slow': 'spin 3s linear infinite',
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'glow': 'glow 2s ease-in-out infinite alternate',
       },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        glow: {
+          'from': { boxShadow: '0 0 10px #2563EB, 0 0 20px #2563EB' },
+          'to': { boxShadow: '0 0 20px #2563EB, 0 0 30px #2563EB' },
+        }
+      }
     },
   },
   plugins: [],
