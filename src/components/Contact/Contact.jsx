@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, Globe, MapPin, Send, User, MessageSquare, Loader2 } from 'lucide-react';
+import { Phone, Mail, Globe, MapPin, Send, User, MessageSquare, Loader2, CheckCircle, ArrowLeft } from 'lucide-react';
 import { contactInfo } from '../../data/content';
 import './Contact.css';
 
@@ -9,6 +9,7 @@ export default function Contact() {
     name: '',
     email: '',
     phone: '',
+    subject: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,127 +23,147 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     setIsSubmitting(false);
     setSubmitted(true);
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
     
     setTimeout(() => setSubmitted(false), 5000);
   };
 
+  const contactItems = [
+    { icon: Phone, label: 'الهاتف', value: contactInfo.phone, href: `tel:${contactInfo.phone}`, dir: 'ltr' },
+    { icon: Mail, label: 'البريد الإلكتروني', value: contactInfo.email, href: `mailto:${contactInfo.email}` },
+    { icon: Globe, label: 'الموقع الإلكتروني', value: contactInfo.website, href: `https://${contactInfo.website}`, external: true },
+    { icon: MapPin, label: 'العنوان', value: contactInfo.address }
+  ];
+
   return (
     <section id="contact" className="contact section">
+      {/* Background */}
+      <div className="contact-bg">
+        <div className="contact-glow"></div>
+      </div>
+
       <div className="container">
         {/* Section Title */}
         <motion.div
           className="section-title"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
+          <span className="section-tag">Contact Us</span>
           <h2>
             تواصل <span className="gradient-text">معنا</span>
           </h2>
-          <p>نحن هنا لمساعدتك في تحقيق أهدافك التقنية</p>
+          <p className="section-desc">
+            نحن هنا لمساعدتك في تحقيق أهدافك التقنية. تواصل معنا الآن!
+          </p>
         </motion.div>
 
         <div className="contact-grid">
           {/* Contact Info */}
           <motion.div
             className="contact-info"
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
           >
-            <h3>معلومات التواصل</h3>
-            <p>لا تتردد في التواصل معنا في أي وقت. فريقنا جاهز لمساعدتك!</p>
+            <div className="contact-info-inner">
+              <h3>معلومات التواصل</h3>
+              <p>لا تتردد في التواصل معنا في أي وقت. فريقنا جاهز لمساعدتك!</p>
 
-            <div className="contact-items">
-              <a href={`tel:${contactInfo.phone}`} className="contact-item">
-                <div className="contact-icon">
-                  <Phone size={20} />
-                </div>
-                <div className="contact-text">
-                  <span className="label">الهاتف</span>
-                  <span className="value" dir="ltr">{contactInfo.phone}</span>
-                </div>
-              </a>
+              <div className="contact-items">
+                {contactItems.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 + index * 0.1 }}
+                  >
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        className="contact-item"
+                        target={item.external ? "_blank" : undefined}
+                        rel={item.external ? "noopener noreferrer" : undefined}
+                      >
+                        <div className="contact-icon">
+                          <item.icon size={20} strokeWidth={1.5} />
+                        </div>
+                        <div className="contact-text">
+                          <span className="label">{item.label}</span>
+                          <span className="value" dir={item.dir}>{item.value}</span>
+                        </div>
+                        <ArrowLeft size={16} className="item-arrow" />
+                      </a>
+                    ) : (
+                      <div className="contact-item static">
+                        <div className="contact-icon">
+                          <item.icon size={20} strokeWidth={1.5} />
+                        </div>
+                        <div className="contact-text">
+                          <span className="label">{item.label}</span>
+                          <span className="value">{item.value}</span>
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
 
-              <a href={`mailto:${contactInfo.email}`} className="contact-item">
-                <div className="contact-icon">
-                  <Mail size={20} />
-                </div>
-                <div className="contact-text">
-                  <span className="label">البريد الإلكتروني</span>
-                  <span className="value">{contactInfo.email}</span>
-                </div>
-              </a>
-
-              <a href={`https://${contactInfo.website}`} target="_blank" rel="noopener noreferrer" className="contact-item">
-                <div className="contact-icon">
-                  <Globe size={20} />
-                </div>
-                <div className="contact-text">
-                  <span className="label">الموقع الإلكتروني</span>
-                  <span className="value">{contactInfo.website}</span>
-                </div>
-              </a>
-
-              <div className="contact-item">
-                <div className="contact-icon">
-                  <MapPin size={20} />
-                </div>
-                <div className="contact-text">
-                  <span className="label">العنوان</span>
-                  <span className="value">{contactInfo.address}</span>
+              {/* Working Hours */}
+              <div className="working-hours">
+                <h4>ساعات العمل</h4>
+                <div className="hours-grid">
+                  <div className="hours-item">
+                    <span>الأحد - الخميس</span>
+                    <span>9:00 ص - 6:00 م</span>
+                  </div>
+                  <div className="hours-item">
+                    <span>الجمعة - السبت</span>
+                    <span>مغلق</span>
+                  </div>
                 </div>
               </div>
             </div>
-
-            {/* Payment Partners */}
-            <div className="payment-partners">
-              <p>شركاء الدفع الإلكتروني</p>
-              <div className="partners-logos">
-                <div className="partner-badge">3D Secure</div>
-                <div className="partner-badge">VISA</div>
-                <div className="partner-badge">MasterCard</div>
-              </div>
-            </div>
+            <div className="contact-info-border"></div>
           </motion.div>
 
           {/* Contact Form */}
           <motion.div
             className="contact-form-wrapper"
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
           >
             <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">
-                  <User size={18} />
-                  <span>الاسم الكامل</span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  placeholder="أدخل اسمك الكامل"
-                />
-              </div>
-
               <div className="form-row">
                 <div className="form-group">
+                  <label htmlFor="name">
+                    <User size={16} />
+                    <span>الاسم الكامل</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="أدخل اسمك الكامل"
+                  />
+                </div>
+
+                <div className="form-group">
                   <label htmlFor="email">
-                    <Mail size={18} />
+                    <Mail size={16} />
                     <span>البريد الإلكتروني</span>
                   </label>
                   <input
@@ -155,10 +176,12 @@ export default function Contact() {
                     placeholder="example@email.com"
                   />
                 </div>
+              </div>
 
+              <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="phone">
-                    <Phone size={18} />
+                    <Phone size={16} />
                     <span>رقم الهاتف</span>
                   </label>
                   <input
@@ -171,11 +194,26 @@ export default function Contact() {
                     dir="ltr"
                   />
                 </div>
+
+                <div className="form-group">
+                  <label htmlFor="subject">
+                    <MessageSquare size={16} />
+                    <span>الموضوع</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    placeholder="موضوع الرسالة"
+                  />
+                </div>
               </div>
 
               <div className="form-group">
                 <label htmlFor="message">
-                  <MessageSquare size={18} />
+                  <MessageSquare size={16} />
                   <span>رسالتك</span>
                 </label>
                 <textarea
@@ -189,10 +227,12 @@ export default function Contact() {
                 ></textarea>
               </div>
 
-              <button
+              <motion.button
                 type="submit"
                 className={`submit-btn ${isSubmitting ? 'loading' : ''} ${submitted ? 'success' : ''}`}
                 disabled={isSubmitting}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               >
                 {isSubmitting ? (
                   <>
@@ -201,7 +241,7 @@ export default function Contact() {
                   </>
                 ) : submitted ? (
                   <>
-                    <span>✓</span>
+                    <CheckCircle size={20} />
                     <span>تم الإرسال بنجاح!</span>
                   </>
                 ) : (
@@ -210,8 +250,9 @@ export default function Contact() {
                     <span>إرسال الرسالة</span>
                   </>
                 )}
-              </button>
+              </motion.button>
             </form>
+            <div className="form-border"></div>
           </motion.div>
         </div>
       </div>

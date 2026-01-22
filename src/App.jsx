@@ -3,6 +3,7 @@ import Hero from './components/Hero/Hero';
 import About from './components/About/About';
 import Services from './components/Services/Services';
 import Products from './components/Products/Products';
+import Clients from './components/Clients/Clients';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import WhatsAppButton from './components/WhatsAppButton/WhatsAppButton';
@@ -16,6 +17,7 @@ function App() {
         <About />
         <Services />
         <Products />
+        <Clients />
         <Contact />
       </main>
       <Footer />

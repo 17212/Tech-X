@@ -1,15 +1,20 @@
-import { Phone, Mail, Globe, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Phone, Mail, Globe, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube, ArrowUp } from 'lucide-react';
 import { contactInfo } from '../../data/content';
 import './Footer.css';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const quickLinks = [
     { href: '#home', label: 'الرئيسية' },
     { href: '#about', label: 'من نحن' },
     { href: '#services', label: 'خدماتنا' },
     { href: '#products', label: 'منتجاتنا' },
+    { href: '#clients', label: 'عملاؤنا' },
     { href: '#contact', label: 'تواصل معنا' }
   ];
 
@@ -18,11 +23,23 @@ export default function Footer() {
     'تطبيقات الهاتف والويب',
     'أنظمة الأمن والمراقبة',
     'المنازل الذكية',
-    'بوابات الدفع'
+    'بوابات الدفع الإلكتروني',
+    'التسويق الرقمي'
+  ];
+
+  const socialLinks = [
+    { icon: Facebook, href: '#', label: 'Facebook' },
+    { icon: Twitter, href: '#', label: 'Twitter' },
+    { icon: Instagram, href: '#', label: 'Instagram' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Youtube, href: '#', label: 'YouTube' }
   ];
 
   return (
     <footer className="footer">
+      {/* Footer Top Gradient */}
+      <div className="footer-top-line"></div>
+
       <div className="container">
         <div className="footer-grid">
           {/* Brand */}
@@ -38,13 +55,19 @@ export default function Footer() {
             </a>
             <p>
               شركة X-Tech للحلول التقنية المتكاملة في جدة. نقدم خدمات متميزة
-              في مجال التقنية والأنظمة الإلكترونية.
+              في مجال التقنية والأنظمة الإلكترونية وأنظمة الأمن والحلول الذكية.
             </p>
             <div className="social-links">
-              <a href="#" aria-label="Facebook"><Facebook size={20} /></a>
-              <a href="#" aria-label="Twitter"><Twitter size={20} /></a>
-              <a href="#" aria-label="Instagram"><Instagram size={20} /></a>
-              <a href="#" aria-label="LinkedIn"><Linkedin size={20} /></a>
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="social-link"
+                >
+                  <social.icon size={18} strokeWidth={1.5} />
+                </a>
+              ))}
             </div>
           </div>
 
@@ -77,21 +100,21 @@ export default function Footer() {
             <h4>تواصل معنا</h4>
             <ul className="contact-list">
               <li>
-                <Phone size={16} />
+                <Phone size={16} strokeWidth={1.5} />
                 <a href={`tel:${contactInfo.phone}`} dir="ltr">{contactInfo.phone}</a>
               </li>
               <li>
-                <Mail size={16} />
+                <Mail size={16} strokeWidth={1.5} />
                 <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
               </li>
               <li>
-                <Globe size={16} />
+                <Globe size={16} strokeWidth={1.5} />
                 <a href={`https://${contactInfo.website}`} target="_blank" rel="noopener noreferrer">
                   {contactInfo.website}
                 </a>
               </li>
               <li>
-                <MapPin size={16} />
+                <MapPin size={16} strokeWidth={1.5} />
                 <span>{contactInfo.address}</span>
               </li>
             </ul>
@@ -100,12 +123,15 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="footer-bottom">
-          <p>
-            © {currentYear} X-Tech. جميع الحقوق محفوظة.
+          <p className="copyright">
+            © {currentYear} <span className="gradient-text">X-Tech</span>. جميع الحقوق محفوظة.
           </p>
           <p className="credits">
-            صُمم بـ ❤️ في المملكة العربية السعودية
+            صُمم بـ <span className="heart">❤</span> في المملكة العربية السعودية
           </p>
+          <button className="scroll-top" onClick={scrollToTop} aria-label="Scroll to top">
+            <ArrowUp size={20} />
+          </button>
         </div>
       </div>
     </footer>
