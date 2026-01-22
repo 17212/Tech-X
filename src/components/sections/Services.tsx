@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
-import { Brain, Shield, Box, Cloud, ArrowUpRight } from 'lucide-react';
+import { Brain, Smartphone, Globe, Shield, CreditCard, Camera, Users, ArrowUpRight } from 'lucide-react';
 import { SERVICES } from '../../core/constants';
 
 const iconMap: Record<string, any> = {
-  Brain, Shield, Box, Cloud
+  Brain, Smartphone, Globe, Shield, CreditCard, Camera, Users
 };
 
 const Services = () => {

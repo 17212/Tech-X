@@ -30,9 +30,9 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-6xl md:text-8xl font-display font-bold text-white mb-8 leading-tight tracking-tight"
           >
-            Forging the <br />
+            Turning Ideas <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-gradient-x">
-              Digital Frontier
+              Into Reality
             </span>
           </motion.h1>
 
@@ -42,7 +42,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-xl text-text-secondary max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            We engineer the impossible. From quantum-ready security to immersive digital twins, we build the infrastructure of tomorrow.
+            We aspire to lead the journey in innovation, enabling individuals and institutions to thrive in the digital age.
           </motion.p>
 
           <motion.div
